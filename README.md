@@ -50,3 +50,19 @@
 This project is licensed under LGPL-3.0. Please see the [LICENSE](/LICENSE) file for details.
 
 pmmp/PocketMine are not affiliated with Mojang. All brands and trademarks belong to their respective owners. PocketMine-MP is not a Mojang-approved software, nor is it associated with Mojang.
+
+
+## Enlaces de QXRND
+
+| Recurso | Enlace |
+|---|---|
+| Código fuente editable | [QXRND/PocketMine-MP-PM4](https://github.com/QXRND/PocketMine-MP-PM4) |
+| Egg de Pterodactyl | [QXRND/PocketMine-MP-Egg](https://github.com/QXRND/PocketMine-MP-Egg) |
+| Release PM4 | [v4.26.0](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0) |
+| Descargar PHAR | [PocketMine-MP-PM4.phar](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0/PocketMine-MP-PM4.phar) |
+
+El egg descarga automáticamente el release más reciente de este repositorio cuando se selecciona `PM4`. Para publicar una actualización, sube un nuevo release con un asset llamado `PocketMine-MP-PM4.phar`.
+
+Autor: DevPapo  
+Soporte: admin@scon.host  
+Discord: https://discord.gg/qhUXn72rGB
