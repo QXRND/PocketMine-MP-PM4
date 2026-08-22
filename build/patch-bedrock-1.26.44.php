@@ -16,7 +16,6 @@ foreach(glob($sourceSerializer . "/*.php") as $file){
 }
 $levelSoundEvent = $protocol . "/types/LevelSoundEvent.php";
 $soundMap = $data . "/level_sound_id_map.json";
-
 if(!is_file($protocolInfo) || !is_file($levelSoundEvent) || !is_file($soundMap)){
     throw new RuntimeException("Required Bedrock 1.26.44 files were not installed");
 }
@@ -36,3 +35,26 @@ $sounds = preg_replace_callback(
     $sounds
 );
 file_put_contents($levelSoundEvent, $sounds);
+
+// PM4's legacy LoginPacketHandler expects chainDataJwt, while modern BedrockProtocol
+// exposes authInfoJson containing the certificate chain. Add a compatibility view once.
+$loginPacket = $protocol . "/LoginPacket.php";
+$login = file_get_contents($loginPacket);
+if(strpos($login, 'public JwtChain $chainDataJwt;') === false){
+    $login = str_replace(
+        "use pocketmine\\network\\mcpe\\protocol\\serializer\\CommonTypes;\nuse function strlen;",
+        "use pocketmine\\network\\mcpe\\protocol\\serializer\\CommonTypes;\nuse pocketmine\\network\\mcpe\\protocol\\types\\login\\JwtChain;\nuse function json_decode;\nuse function strlen;\nuse const JSON_THROW_ON_ERROR;",
+        $login
+    );
+    $login = str_replace(
+        "\tpublic string $clientDataJwt;",
+        "\tpublic string $clientDataJwt;\n\t/** @internal Compatibility view for the legacy PM4 login handler. */\n\tpublic JwtChain $chainDataJwt;",
+        $login
+    );
+    $login = str_replace(
+        "\t\t$this->clientDataJwt = $connRequestReader->readByteArray($clientDataJwtLength);",
+        "\t\t$this->clientDataJwt = $connRequestReader->readByteArray($clientDataJwtLength);\n\n\t\t// Modern Bedrock stores the JWT chain in authInfoJson.Certificate.\n\t\t$authInfo = json_decode($this->authInfoJson, associative: false, flags: JSON_THROW_ON_ERROR);\n\t\t$this->chainDataJwt = new JwtChain();\n\t\tif(is_object($authInfo) && isset($authInfo->Certificate)){\n\t\t\t$certificate = json_decode((string) $authInfo->Certificate, associative: false, flags: JSON_THROW_ON_ERROR);\n\t\t\tif(is_object($certificate) && isset($certificate->chain) && is_array($certificate->chain)){\n\t\t\t\t$this->chainDataJwt->chain = array_values(array_map(static fn(mixed $jwt) : string => (string) $jwt, $certificate->chain));\n\t\t\t}\n\t\t}",
+        $login
+    );
+    file_put_contents($loginPacket, $login);
+}
