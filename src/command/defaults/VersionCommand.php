@@ -33,9 +33,9 @@ use pocketmine\utils\Utils;
 use pocketmine\VersionInfo;
 use function count;
 use function implode;
-use function sprintf;
 use function stripos;
 use function strtolower;
+use function substr;
 use const PHP_VERSION;
 
 class VersionCommand extends VanillaCommand{
@@ -51,37 +51,42 @@ class VersionCommand extends VanillaCommand{
 	}
 
 	public function execute(CommandSender $sender, string $commandLabel, array $args){
-		if(!$this->testPermission($sender)){
-			return true;
-		}
-
 		if(count($args) === 0){
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_serverSoftwareName(
-				TextFormat::GREEN . VersionInfo::NAME . TextFormat::RESET
-			));
 			$versionColor = VersionInfo::IS_DEVELOPMENT_BUILD ? TextFormat::YELLOW : TextFormat::GREEN;
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_serverSoftwareVersion(
-				$versionColor . VersionInfo::VERSION()->getFullVersion() . TextFormat::RESET,
-				TextFormat::GREEN . VersionInfo::GIT_HASH() . TextFormat::RESET
-			));
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_minecraftVersion(
-				TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION_NETWORK . TextFormat::RESET,
-				TextFormat::GREEN . ProtocolInfo::CURRENT_PROTOCOL . TextFormat::RESET
-			));
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_phpVersion(TextFormat::GREEN . PHP_VERSION . TextFormat::RESET));
+			$isAbout = strtolower($commandLabel) === "about";
+			if($isAbout){
+				$sender->sendMessage(TextFormat::DARK_AQUA . "QXRND - PocketMine-MP" . TextFormat::WHITE . " ABOUT");
+				$sender->sendMessage(TextFormat::GRAY . "About this server");
+				$sender->sendMessage(TextFormat::BLUE . "------------------------------");
+				$sender->sendMessage(TextFormat::AQUA . "Name      " . TextFormat::WHITE . "> " . TextFormat::AQUA . VersionInfo::NAME);
+				$sender->sendMessage(TextFormat::AQUA . "API       " . TextFormat::WHITE . "> " . $versionColor . "4.26.0 (PM4)");
+				$sender->sendMessage(TextFormat::AQUA . "Author    " . TextFormat::WHITE . "> " . TextFormat::GOLD . "DevPapo");
+				$sender->sendMessage(TextFormat::AQUA . "Minecraft " . TextFormat::WHITE . "> " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION_NETWORK);
+				$sender->sendMessage(TextFormat::AQUA . "Protocol  " . TextFormat::WHITE . "> " . TextFormat::GREEN . ProtocolInfo::CURRENT_PROTOCOL);
+				$sender->sendMessage(TextFormat::AQUA . "Discord   " . TextFormat::WHITE . "> " . TextFormat::AQUA . VersionInfo::DISCORD_URL);
+				$sender->sendMessage(TextFormat::BLUE . "------------------------------");
+				$sender->sendMessage(TextFormat::GRAY . "QXRND - PocketMine-MP support");
+				return true;
+			}
 
 			$jitMode = Utils::getOpcacheJitMode();
-			if($jitMode !== null){
-				if($jitMode !== 0){
-					$jitStatus = KnownTranslationFactory::pocketmine_command_version_phpJitEnabled(sprintf("CRTO: %d", $jitMode));
-				}else{
-					$jitStatus = KnownTranslationFactory::pocketmine_command_version_phpJitDisabled();
-				}
-			}else{
-				$jitStatus = KnownTranslationFactory::pocketmine_command_version_phpJitNotSupported();
-			}
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_phpJitStatus($jitStatus->format(TextFormat::GREEN, TextFormat::RESET)));
-			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_operatingSystem(TextFormat::GREEN . Utils::getOS() . TextFormat::RESET));
+			$jitText = $jitMode === null ? "Unavailable" : ($jitMode === 0 ? "Disabled" : "Enabled");
+
+			$sender->sendMessage(TextFormat::DARK_AQUA . "QXRND - PocketMine-MP" . TextFormat::WHITE . " VERSION");
+			$sender->sendMessage(TextFormat::GRAY . "  Server information");
+			$sender->sendMessage(TextFormat::BLUE . "------------------------------");
+			$sender->sendMessage(TextFormat::AQUA . "Server    " . TextFormat::WHITE . "> " . TextFormat::AQUA . VersionInfo::NAME);
+			$sender->sendMessage(TextFormat::AQUA . "API       " . TextFormat::WHITE . "> " . $versionColor . "4.26.0 (PM4)");
+			$sender->sendMessage(TextFormat::AQUA . "Author    " . TextFormat::WHITE . "> " . TextFormat::GOLD . "DevPapo");
+			$sender->sendMessage(TextFormat::AQUA . "Platform  " . TextFormat::WHITE . "> " . TextFormat::GREEN . "Minecraft Bedrock");
+			$sender->sendMessage(TextFormat::AQUA . "Bedrock   " . TextFormat::WHITE . "> " . TextFormat::GREEN . ProtocolInfo::MINECRAFT_VERSION_NETWORK . TextFormat::GRAY . " (protocol " . ProtocolInfo::CURRENT_PROTOCOL . ")");
+			$sender->sendMessage(TextFormat::AQUA . "PHP       " . TextFormat::WHITE . "> " . TextFormat::GREEN . PHP_VERSION);
+			$sender->sendMessage(TextFormat::AQUA . "System    " . TextFormat::WHITE . "> " . TextFormat::GREEN . Utils::getOS());
+			$sender->sendMessage(TextFormat::AQUA . "OPcache   " . TextFormat::WHITE . "> " . TextFormat::GREEN . "JIT " . $jitText);
+			$sender->sendMessage(TextFormat::AQUA . "Discord   " . TextFormat::WHITE . "> " . TextFormat::AQUA . VersionInfo::DISCORD_URL);
+			$sender->sendMessage(TextFormat::BLUE . "------------------------------");
+			$sender->sendMessage(TextFormat::GRAY . "Build " . TextFormat::DARK_GRAY . substr(VersionInfo::GIT_HASH(), 0, 12));
+			$sender->sendMessage(TextFormat::DARK_AQUA . "QXRND - PocketMine-MP " . TextFormat::GRAY . "- developed by " . TextFormat::GOLD . "DevPapo");
 		}else{
 			$pluginName = implode(" ", $args);
 			$exactPlugin = $sender->getServer()->getPluginManager()->getPlugin($pluginName);
@@ -111,21 +116,24 @@ class VersionCommand extends VanillaCommand{
 
 	private function describeToSender(Plugin $plugin, CommandSender $sender) : void{
 		$desc = $plugin->getDescription();
-		$sender->sendMessage(TextFormat::DARK_GREEN . $desc->getName() . TextFormat::RESET . " version " . TextFormat::DARK_GREEN . $desc->getVersion());
+		$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_plugin_header(
+			TextFormat::DARK_GREEN . $desc->getName() . TextFormat::RESET,
+			TextFormat::DARK_GREEN . $desc->getVersion() . TextFormat::RESET
+		));
 
 		if($desc->getDescription() !== ""){
 			$sender->sendMessage($desc->getDescription());
 		}
 
 		if($desc->getWebsite() !== ""){
-			$sender->sendMessage("Website: " . $desc->getWebsite());
+			$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_plugin_website($desc->getWebsite()));
 		}
 
 		if(count($authors = $desc->getAuthors()) > 0){
 			if(count($authors) === 1){
-				$sender->sendMessage("Author: " . implode(", ", $authors));
+				$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_plugin_author(implode(", ", $authors)));
 			}else{
-				$sender->sendMessage("Authors: " . implode(", ", $authors));
+				$sender->sendMessage(KnownTranslationFactory::pocketmine_command_version_plugin_authors(implode(", ", $authors)));
 			}
 		}
 	}

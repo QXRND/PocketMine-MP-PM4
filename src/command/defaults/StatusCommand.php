@@ -51,8 +51,10 @@ class StatusCommand extends VanillaCommand{
 
 		$mUsage = Process::getAdvancedMemoryUsage();
 
-		$server = $sender->getServer();
-		$sender->sendMessage(TextFormat::GREEN . "---- " . TextFormat::RESET . "Server status" . TextFormat::GREEN . " ----");
+			$server = $sender->getServer();
+			$sender->sendMessage(TextFormat::DARK_AQUA . "QXRND - PocketMine-MP" . TextFormat::WHITE . " STATUS");
+			$sender->sendMessage(TextFormat::GRAY . "  Real-time performance");
+			$sender->sendMessage(TextFormat::BLUE . "------------------------------");
 
 		$time = (int) (microtime(true) - $server->getStartTime());
 
@@ -106,7 +108,8 @@ class StatusCommand extends VanillaCommand{
 			$sender->sendMessage(TextFormat::GOLD . "Maximum memory (manager): " . TextFormat::RED . number_format(round(($globalLimit / 1024) / 1024, 2), 2) . " MB.");
 		}
 
-		foreach($server->getWorldManager()->getWorlds() as $world){
+					foreach($server->getWorldManager()->getWorlds() as $world){
+
 			$worldName = $world->getFolderName() !== $world->getDisplayName() ? " (" . $world->getDisplayName() . ")" : "";
 			$timeColor = $world->getTickRateTime() > 40 ? TextFormat::RED : TextFormat::YELLOW;
 			$sender->sendMessage(TextFormat::GOLD . "World \"{$world->getFolderName()}\"$worldName: " .
@@ -115,8 +118,10 @@ class StatusCommand extends VanillaCommand{
 				TextFormat::RED . number_format(count($world->getEntities())) . TextFormat::GREEN . " entities. " .
 				"Time $timeColor" . round($world->getTickRateTime(), 2) . "ms"
 			);
+					}
+			$sender->sendMessage(TextFormat::BLUE . "------------------------------");
+
+			return true;
 		}
 
-		return true;
-	}
 }

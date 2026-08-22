@@ -34,6 +34,7 @@ final class VersionInfo{
 	public const BASE_VERSION = "4.26.0";
 	public const IS_DEVELOPMENT_BUILD = false;
 	public const BUILD_CHANNEL = "stable";
+	public const DISCORD_URL = "https://discord.gg/qhUXn72rGB";
 
 	private function __construct(){
 		//NOOP
