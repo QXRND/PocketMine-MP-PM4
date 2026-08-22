@@ -5,6 +5,15 @@ $root = dirname(__DIR__);
 $protocol = $root . "/vendor/vapebw/bedrock-protocol/src";
 $data = $root . "/vendor/nethergamesmc/bedrock-data";
 $protocolInfo = $protocol . "/ProtocolInfo.php";
+$compatSerializer = $protocol . "/serializer";
+$sourceSerializer = $root . "/src/network/mcpe/protocol/serializer";
+
+if(!is_dir($compatSerializer) || !is_dir($sourceSerializer)){
+    throw new RuntimeException("Serializer compatibility directories are missing");
+}
+foreach(glob($sourceSerializer . "/*.php") as $file){
+    copy($file, $compatSerializer . "/" . basename($file));
+}
 $levelSoundEvent = $protocol . "/types/LevelSoundEvent.php";
 $soundMap = $data . "/level_sound_id_map.json";
 
