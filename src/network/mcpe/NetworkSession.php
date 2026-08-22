@@ -413,7 +413,7 @@ class NetworkSession{
 			try{
 				$stream = PacketSerializer::decoder($buffer, 0, $this->packetSerializerContext);
 				try{
-					$packet->decode($stream);
+					$packet->decode($stream, ProtocolInfo::CURRENT_PROTOCOL);
 				}catch(PacketDecodeException $e){
 					throw PacketHandlingException::wrap($e);
 				}
@@ -479,7 +479,7 @@ class NetworkSession{
 		$timings = Timings::getEncodeDataPacketTimings($packet);
 		$timings->startTiming();
 		try{
-			$packet->encode($serializer);
+			$packet->encode($serializer, ProtocolInfo::CURRENT_PROTOCOL);
 			return $serializer->getBuffer();
 		}finally{
 			$timings->stopTiming();

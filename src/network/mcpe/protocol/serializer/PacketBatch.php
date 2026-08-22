@@ -17,6 +17,7 @@ namespace pocketmine\network\mcpe\protocol\serializer;
 use pocketmine\network\mcpe\protocol\Packet;
 use pocketmine\network\mcpe\protocol\PacketDecodeException;
 use pocketmine\network\mcpe\protocol\PacketPool;
+use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\utils\BinaryDataException;
 use pocketmine\utils\BinaryStream;
 use function strlen;
@@ -62,7 +63,7 @@ class PacketBatch{
 			$packet = $packetPool->getPacket($packetBuffer);
 			if($packet !== null){
 				try{
-					$packet->decode(PacketSerializer::decoder($packetBuffer, 0, $context));
+					$packet->decode(PacketSerializer::decoder($packetBuffer, 0, $context), ProtocolInfo::CURRENT_PROTOCOL);
 				}catch(PacketDecodeException $e){
 					throw new PacketDecodeException("Error decoding packet $c in batch: " . $e->getMessage(), 0, $e);
 				}
@@ -81,7 +82,7 @@ class PacketBatch{
 	final public static function encodePackets(BinaryStream $stream, PacketSerializerContext $context, array $packets) : void{
 		foreach($packets as $packet){
 			$serializer = PacketSerializer::encoder($context);
-			$packet->encode($serializer);
+			$packet->encode($serializer, ProtocolInfo::CURRENT_PROTOCOL);
 			$stream->putUnsignedVarInt(strlen($serializer->getBuffer()));
 			$stream->put($serializer->getBuffer());
 		}
