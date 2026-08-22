@@ -28,3 +28,9 @@ Support: https://discord.gg/qhUXn72rGB
 ## Connection compatibility fix
 
 This PHAR also includes the packet compatibility fix for PM4's `BinaryStream` and the modern Bedrock serializer, including safe disconnect packet handling. The server was verified to start successfully after this fix, and the serializer compatibility checks passed.
+
+## Unified information commands
+
+PM4 now uses the same QXRND presentation as PM5 and PM6 for `/ver`, `/about` and `/status`. The output is in English, uses the QXRND color layout without emojis or diamonds, includes the Discord support link in `/ver` and `/about`, and does not include Discord in `/status`.
+
+The release also includes the QXRND quick gamemode shortcuts `/gma`, `/gmsp`, `/gmc` and `/gms`, using the normal `/gamemode` permissions.
