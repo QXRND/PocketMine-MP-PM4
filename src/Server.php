@@ -1391,7 +1391,8 @@ class Server{
 				$task = new CompressBatchTask($buffer, $promise, $compressor);
 				$this->asyncPool->submitTask($task);
 			}else{
-				$promise->resolve($compressor->compress($buffer));
+					// Modern Bedrock expects the compression algorithm ID before the compressed batch.
+					$promise->resolve(chr($compressor->getNetworkId()) . $compressor->compress($buffer));
 			}
 
 			return $promise;

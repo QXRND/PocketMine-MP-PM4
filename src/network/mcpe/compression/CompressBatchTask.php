@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace pocketmine\network\mcpe\compression;
 
 use pocketmine\scheduler\AsyncTask;
+use function chr;
 
 class CompressBatchTask extends AsyncTask{
 
@@ -38,7 +39,8 @@ class CompressBatchTask extends AsyncTask{
 	}
 
 	public function onRun() : void{
-		$this->setResult($this->compressor->compress($this->data));
+		// Modern Bedrock expects the compression algorithm ID before the compressed batch.
+		$this->setResult(chr($this->compressor->getNetworkId()) . $this->compressor->compress($this->data));
 	}
 
 	public function onCompletion() : void{

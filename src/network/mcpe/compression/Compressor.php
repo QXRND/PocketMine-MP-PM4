@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace pocketmine\network\mcpe\compression;
 
+use pocketmine\network\mcpe\protocol\types\CompressionAlgorithm;
+
 interface Compressor{
 	/**
 	 * @throws DecompressionException
@@ -30,6 +32,13 @@ interface Compressor{
 	public function decompress(string $payload) : string;
 
 	public function compress(string $payload) : string;
+
+	/**
+	 * Returns the canonical Bedrock network ID of this compressor.
+	 *
+	 * @return CompressionAlgorithm::*
+	 */
+	public function getNetworkId() : int;
 
 	/**
 	 * Returns the minimum size of packet batch that the compressor will attempt to compress.
