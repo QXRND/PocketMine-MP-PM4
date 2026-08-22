@@ -24,3 +24,7 @@ This release updates the PM4 distribution to **Minecraft Bedrock 1.26.44** using
 Download `PocketMine-MP.phar` below. For Pterodactyl, use the public QXRND PocketMine-MP Egg and perform a reinstall after importing the updated Egg.
 
 Support: https://discord.gg/qhUXn72rGB
+
+## Connection compatibility fix
+
+This PHAR also includes the packet compatibility fix for PM4's `BinaryStream` and the modern Bedrock serializer, including safe disconnect packet handling. The server was verified to start successfully after this fix, and the serializer compatibility checks passed.
