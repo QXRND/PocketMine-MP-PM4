@@ -49,6 +49,7 @@ use pocketmine\lang\Language;
 use pocketmine\lang\LanguageNotFoundException;
 use pocketmine\lang\Translatable;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\mcpe\auth\AuthKeyProvider;
 use pocketmine\network\mcpe\compression\CompressBatchPromise;
 use pocketmine\network\mcpe\compression\CompressBatchTask;
 use pocketmine\network\mcpe\compression\Compressor;
@@ -265,6 +266,7 @@ class Server{
 	private int $maxPlayers;
 
 	private bool $onlineMode = true;
+	private AuthKeyProvider $authKeyProvider;
 
 	private Network $network;
 	private bool $networkCompressionAsync = true;
@@ -939,6 +941,7 @@ class Server{
 			$this->maxPlayers = $this->configGroup->getConfigInt("max-players", self::DEFAULT_MAX_PLAYERS);
 
 			$this->onlineMode = $this->configGroup->getConfigBool("xbox-auth", true);
+			$this->authKeyProvider = new AuthKeyProvider(new \PrefixedLogger($this->logger, "Minecraft Auth Key Provider"), $this->asyncPool);
 			if($this->onlineMode){
 				$this->logger->info($this->getLanguage()->translate(KnownTranslationFactory::pocketmine_server_auth_enabled()));
 			}else{
@@ -1752,6 +1755,13 @@ class Server{
 
 	public function isLanguageForced() : bool{
 		return $this->forceLanguage;
+	}
+
+	/**
+	 * @internal
+	 */
+	public function getAuthKeyProvider() : AuthKeyProvider{
+		return $this->authKeyProvider;
 	}
 
 	public function getNetwork() : Network{
