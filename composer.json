@@ -4,6 +4,16 @@
    "type": "project",
    "homepage": "https://pmmp.io",
    "license": "LGPL-3.0",
+   "repositories": [
+      {
+         "type": "vcs",
+         "url": "https://github.com/Amber-PM/BedrockProtocol"
+      },
+      {
+         "type": "vcs",
+         "url": "https://github.com/QXRND/BedrockData-1"
+      }
+   ],
    "require": {
       "php": "^8.1",
       "php-64bit": "*",
@@ -35,9 +45,9 @@
       "fgrosse/phpasn1": "~2.5.0",
       "pocketmine/netresearch-jsonmapper": "~v4.2.1000",
       "pocketmine/bedrock-block-upgrade-schema": "~3.4.0+bedrock-1.20.50",
-      "pocketmine/bedrock-data": "~2.7.0+bedrock-1.20.50",
+      "nethergamesmc/bedrock-data": "dev-master",
       "pocketmine/bedrock-item-upgrade-schema": "~1.6.0+bedrock-1.20.50",
-      "pocketmine/bedrock-protocol": "~26.0.0+bedrock-1.20.50",
+      "vapebw/bedrock-protocol": "dev-main",
       "pocketmine/binaryutils": "^0.2.1",
       "pocketmine/callback-validator": "^1.0.2",
       "pocketmine/classloader": "^0.2.0",
@@ -85,6 +95,7 @@
       "make-devtools": "@php -dphar.readonly=0 tests/plugins/DevTools/src/ConsoleScript.php --make ./ --relative tests/plugins/DevTools --out plugins/DevTools.phar",
       "make-server": [
          "@composer install --no-dev --classmap-authoritative --ignore-platform-reqs",
+         "@php build/patch-bedrock-1.26.44.php",
          "@php -dphar.readonly=0 build/server-phar.php"
       ],
       "update-registry-annotations": [

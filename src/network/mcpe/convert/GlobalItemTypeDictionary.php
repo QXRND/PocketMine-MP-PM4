@@ -24,7 +24,9 @@ declare(strict_types=1);
 namespace pocketmine\network\mcpe\convert;
 
 use pocketmine\data\bedrock\BedrockDataFiles;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\serializer\ItemTypeDictionary;
+use pocketmine\network\mcpe\protocol\types\CacheableNbt;
 use pocketmine\network\mcpe\protocol\types\ItemTypeEntry;
 use pocketmine\utils\AssumptionFailedError;
 use pocketmine\utils\Filesystem;
@@ -50,7 +52,7 @@ final class GlobalItemTypeDictionary{
 			if(!is_array($entry) || !is_string($name) || !isset($entry["component_based"], $entry["runtime_id"]) || !is_bool($entry["component_based"]) || !is_int($entry["runtime_id"])){
 				throw new AssumptionFailedError("Invalid item list format");
 			}
-			$params[] = new ItemTypeEntry($name, $entry["runtime_id"], $entry["component_based"]);
+			$params[] = new ItemTypeEntry($name, $entry["runtime_id"], $entry["component_based"], $entry["version"] ?? 2, new CacheableNbt(new CompoundTag()));
 		}
 		return new self(new ItemTypeDictionary($params));
 	}
