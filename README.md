@@ -1,68 +1,104 @@
-<p align="center">
-	<a href="https://pmmp.io">
-		<!--[if IE]>
-			<img src="https://github.com/pmmp/PocketMine-MP/blob/stable/.github/readme/pocketmine.png" alt="The PocketMine-MP logo" title="PocketMine" loading="eager" />
-		<![endif]-->
-		<picture>
-			<source srcset="https://github.com/pmmp/PocketMine-MP/raw/stable/.github/readme/pocketmine-dark.png" media="(prefers-color-scheme: dark)">
-			<img src="https://github.com/pmmp/PocketMine-MP/raw/stable/.github/readme/pocketmine.png" loading="eager" />
-		</picture>
-	</a><br>
-	<b>A highly customisable, open source server software for Minecraft: Bedrock Edition written in PHP</b>
-</p>
+# QXRND - PocketMine-MP PM4
 
-<p align="center">
-	<a href="https://github.com/pmmp/PocketMine-MP/actions/workflows/main.yml"><img src="https://github.com/pmmp/PocketMine-MP/workflows/CI/badge.svg" alt="CI" /></a>
-	<a href="https://github.com/pmmp/PocketMine-MP/releases/latest"><img alt="GitHub release (latest SemVer)" src="https://img.shields.io/github/v/release/pmmp/PocketMine-MP?label=release&sort=semver"></a>
-	<a href="https://discord.gg/bmSAZBG"><img src="https://img.shields.io/discord/373199722573201408?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
-	<br>
-	<a href="https://github.com/pmmp/PocketMine-MP/releases"><img alt="GitHub all releases" src="https://img.shields.io/github/downloads/pmmp/PocketMine-MP/total?label=downloads%40total"></a>
-	<a href="https://github.com/pmmp/PocketMine-MP/releases/latest"><img alt="GitHub release (latest by SemVer)" src="https://img.shields.io/github/downloads/pmmp/PocketMine-MP/latest/total?sort=semver"></a>
-</p>
+![Platform](https://img.shields.io/badge/platform-Minecraft%20Bedrock-55C2E6)
+![API](https://img.shields.io/badge/API-4.26.0-2F81F7)
+![Protocol](https://img.shields.io/badge/protocol-2168-6F42C1)
+![Runtime](https://img.shields.io/badge/PHP-8.1-777BB4)
 
-## Getting started
-- [Documentation](http://pmmp.readthedocs.org/)
-- [Installation instructions](https://pmmp.readthedocs.io/en/rtfd/installation.html)
-- [Docker image](https://github.com/pmmp/PocketMine-MP/pkgs/container/pocketmine-mp)
-- [Plugin repository](https://poggit.pmmp.io/plugins)
+QXRND - PocketMine-MP PM4 is a downstream distribution of [PocketMine-MP](https://github.com/pmmp/PocketMine-MP) that preserves the PM4 application and plugin API line while carrying a Bedrock 1.26.44 compatibility port. It is not an upstream PocketMine-MP release and is not affiliated with Mojang, Microsoft, or the PocketMine-MP maintainers.
 
-## Discussion/Help
-- [Forums](https://forums.pmmp.io/)
-- [Discord](https://discord.gg/bmSAZBG)
-- [StackOverflow](https://stackoverflow.com/tags/pocketmine)
+The branch targets operators and developers who require a legacy PM4-compatible server API while servicing the Bedrock network protocol used by this distribution.
 
-## For developers
- * [Building and running from source](BUILDING.md)
- * [Developer documentation](https://devdoc.pmmp.io) - General documentation for PocketMine-MP plugin developers
- * [Latest release API documentation](https://apidoc.pmmp.io) - Doxygen API documentation generated for each release
- * [Latest bleeding-edge API documentation](https://apidoc-dev.pmmp.io) - Doxygen API documentation generated weekly from `major-next` branch
- * [DevTools](https://github.com/pmmp/DevTools/) - Development tools plugin for creating plugins
- * [ExamplePlugin](https://github.com/pmmp/ExamplePlugin/) - Example plugin demonstrating some basic API features
- * [Contributing Guidelines](CONTRIBUTING.md)
+## Release profile
 
-## Donate
-- Bitcoin Cash (BCH): `qq3r46hn6ljnhnqnfwxt5pg3g447eq9jhvw5ddfear`
-- Bitcoin (BTC): `171u8K9e4FtU6j3e5sqNoxKUgEw9qWQdRV`
-- Stellar Lumens (XLM): `GAAC5WZ33HCTE3BFJFZJXONMEIBNHFLBXM2HJVAZHXXPYA3HP5XPPS7T`
-- [Patreon](https://www.patreon.com/pocketminemp)
-
-## Licensing information
-This project is licensed under LGPL-3.0. Please see the [LICENSE](/LICENSE) file for details.
-
-pmmp/PocketMine are not affiliated with Mojang. All brands and trademarks belong to their respective owners. PocketMine-MP is not a Mojang-approved software, nor is it associated with Mojang.
-
-
-## Enlaces de QXRND
-
-| Recurso | Enlace |
+| Component | Value |
 |---|---|
-| Código fuente editable | [QXRND/PocketMine-MP-PM4](https://github.com/QXRND/PocketMine-MP-PM4) |
-| Egg de Pterodactyl | [QXRND/PocketMine-MP-Egg](https://github.com/QXRND/PocketMine-MP-Egg) |
-| Release PM4 | [v4.26.0-qxrnd.3](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0-qxrnd.3) — Bedrock 1.26.44 / protocol 2168 |
-| Descargar PHAR | [PocketMine-MP.phar](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.3/PocketMine-MP.phar) |
+| Distribution | QXRND - PocketMine-MP PM4 |
+| PocketMine-MP API line | 4.26.0 |
+| Bedrock network version | 1.26.44 |
+| Bedrock protocol | 2168 |
+| PHP runtime | PHP 8.1, x86_64 |
+| Stable release | [`v4.26.0-qxrnd.3`](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0-qxrnd.3) |
+| Distribution asset | [`PocketMine-MP.phar`](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.3/PocketMine-MP.phar) |
+| Author and maintainer | **DevPapo** |
 
-El egg descarga automáticamente el release más reciente de este repositorio cuando se selecciona `PM4`. Para publicar una actualización, sube un nuevo release con un asset llamado `PocketMine-MP.phar`.
+## Upstream lineage and compatibility model
 
-Autor: DevPapo  
-Soporte: admin@scon.host  
-Discord: https://discord.gg/qhUXn72rGB
+The application layer remains PM4-oriented: command dispatch, plugin loading, permissions, scheduling, world management, server lifecycle, and the public PM4 API are derived from the PM4 code line. Bedrock support is supplied by updated protocol and data dependencies together with a compatibility layer bridging PM4's `BinaryStream` serializer model and the modern Bedrock packet implementation.
+
+This is a downstream backport rather than a native PM4 upstream release. Plugins that depend on undocumented internals, historical packet layouts, or exact legacy Bedrock tables must be tested independently. API compatibility does not imply binary compatibility for arbitrary packet hooks.
+
+## QXRND modifications
+
+The distribution includes the following downstream changes:
+
+- Bedrock 1.26.44 and protocol 2168 support in the PM4 branch.
+- Reproducible Composer integration for the Bedrock protocol and data packages.
+- Compatibility adapters for `ByteBufferReader`, `ByteBufferWriter`, and modern `VarInt` operations.
+- Packet-batch, packet-serializer, item-dictionary, sound-event, and disconnect-signature compatibility fixes.
+- QXRND branding in server metadata, crash dumps, and information commands.
+- English QXRND output for `/ver`, `/about`, and `/status`.
+- Discord support shown by `/ver` and `/about`; `/status` intentionally does not display the Discord link.
+- Configurable `/say` prefix through `settings.say-prefix`, defaulting to `QXRND`.
+- Minimal PHAR packaging to reduce temporary disk usage during Pterodactyl extraction.
+
+## Runtime requirements
+
+The published PM4 distribution requires a 64-bit Linux runtime with PHP 8.1. The supplied Pterodactyl runtime is recommended. The server requires write access to its data, worlds, plugins, resource-pack, and temporary extraction paths.
+
+Online-mode deployments require outbound connectivity for Xbox Live authentication and Bedrock key retrieval. UDP port exposure, DNS, firewall rules, and host-level resource limits remain operator responsibilities.
+
+## Installation
+
+Download the stable PHAR and execute it with PHP 8.1:
+
+```bash
+curl -fL -o PocketMine-MP.phar \
+  https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.3/PocketMine-MP.phar
+php8.1 PocketMine-MP.phar --no-wizard
+```
+
+For Pterodactyl, import [`egg-pmmp.json`](https://github.com/QXRND/PocketMine-MP-Egg/blob/main/egg-pmmp.json), select `PM4` in the `VERSION` variable, and use **Reinstall Server** when replacing an existing installation. The egg installs the PHP runtime and downloads the asset named `PocketMine-MP.phar`.
+
+## Configuration
+
+The generated `pocketmine.yml` contains:
+
+```yaml
+settings:
+  say-prefix: "QXRND"
+```
+
+This setting controls the prefix emitted by `/say`. Existing installations may require the key to be added manually under `settings`.
+
+## Build and packaging
+
+The repository contains the Composer lockfile and the Bedrock compatibility patch used by the distribution build. A reproducible build can be invoked with:
+
+```bash
+composer install --no-interaction
+RYXMC_MINIMAL_PHAR=1 composer run make-server --no-interaction
+```
+
+The build produces `PocketMine-MP.phar`. The minimal packaging flag is a disk-usage optimization; it does not replace protocol, plugin, world, or client compatibility testing.
+
+## Operational guidance
+
+Because this branch combines a legacy API line with modern Bedrock data, stage upgrades against disposable worlds and retain backups. Validate authentication, resource-pack negotiation, inventory serialization, block-state translation, and plugins that directly interact with network packets.
+
+Small source and configuration changes are consolidated into the existing stable release asset. Operators troubleshooting stale behavior should verify the downloaded PHAR and its release timestamp rather than relying only on the repository source view.
+
+## Support and distribution links
+
+| Resource | Link |
+|---|---|
+| Source repository | [QXRND/PocketMine-MP-PM4](https://github.com/QXRND/PocketMine-MP-PM4) |
+| Stable release | [`v4.26.0-qxrnd.3`](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0-qxrnd.3) |
+| Direct PHAR download | [`PocketMine-MP.phar`](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.3/PocketMine-MP.phar) |
+| Pterodactyl Egg | [QXRND/PocketMine-MP-Egg](https://github.com/QXRND/PocketMine-MP-Egg) |
+| Technical support and invitation | [QXRND Discord](https://discord.gg/qhUXn72rGB) |
+| Upstream project | [pmmp/PocketMine-MP](https://github.com/pmmp/PocketMine-MP) |
+
+## Credits and legal notice
+
+The QXRND downstream distribution, its branding, release engineering, and compatibility work are maintained and published by **DevPapo**. PocketMine-MP is the upstream project from which this distribution is derived. Minecraft, Minecraft Bedrock, and related marks belong to their respective owners. This project is neither affiliated with nor endorsed by Mojang or Microsoft.
