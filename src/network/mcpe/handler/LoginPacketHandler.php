@@ -30,6 +30,7 @@ use pocketmine\lang\Translatable;
 use pocketmine\network\mcpe\auth\ProcessLegacyLoginTask;
 use pocketmine\network\mcpe\auth\ProcessOpenIdLoginTask;
 use pocketmine\network\mcpe\auth\ProcessSelfSignedLoginTask;
+use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
 use pocketmine\network\mcpe\JwtException;
 use pocketmine\network\mcpe\JwtUtils;
 use pocketmine\network\mcpe\NetworkSession;
@@ -231,7 +232,7 @@ class LoginPacketHandler extends PacketHandler{
 
 	private function processLoginCommon(LoginPacket $packet, string $username, UuidInterface $legacyUuid, string $xuid) : ?bool{
 		if(!Player::isValidUserName($username)){
-			$this->session->disconnectWithError(KnownTranslationFactory::disconnectionScreen_invalidName());
+			$this->session->disconnect($this->server->getLanguage()->translate(KnownTranslationFactory::disconnectionScreen_invalidName()));
 
 			return null;
 		}
@@ -275,21 +276,15 @@ class LoginPacketHandler extends PacketHandler{
 			($clientData->PersonaSkin || str_starts_with($clientData->SkinId, "c18e65aa-7b21-4637-9b63-8ad63622ef01."))
 			&& $this->session->getProtocolId() >= ProtocolInfo::PROTOCOL_1_26_40
 		){
-			$this->session->disconnectWithError(
-				reason: "Default/random skin not supported on this protocol version",
-				disconnectScreenMessage: "Please set a custom skin before joining (default/random characters aren't supported yet on your Minecraft version)."
-			);
+$this->session->disconnect("Default/random skin not supported on this protocol version");
 
 			return null;
 		}
 
 		try{
-			$skin = $this->session->getTypeConverter()->getSkinAdapter()->fromSkinData(ClientDataToSkinDataHelper::fromClientData($clientData));
+			$skin = SkinAdapterSingleton::get()->fromSkinData(ClientDataToSkinDataHelper::fromClientData($clientData));
 		}catch(\InvalidArgumentException | InvalidSkinException $e){
-			$this->session->disconnectWithError(
-				reason: "Invalid skin: " . $e->getMessage(),
-				disconnectScreenMessage: KnownTranslationFactory::disconnectionScreen_invalidSkin()
-			);
+			$this->session->disconnect($this->server->getLanguage()->translate(KnownTranslationFactory::disconnectionScreen_invalidSkin()));
 
 			return null;
 		}
@@ -314,16 +309,17 @@ class LoginPacketHandler extends PacketHandler{
 		}
 		($this->playerInfoConsumer)($playerInfo);
 
-		$ev = new PlayerPreLoginEvent(
-			$playerInfo,
-			$this->session,
-			$this->server->requiresAuthentication()
-		);
+$ev = new PlayerPreLoginEvent(
+				$playerInfo,
+				$this->session->getIp(),
+				$this->session->getPort(),
+				$this->server->requiresAuthentication()
+			);
 		if($this->server->getNetwork()->getValidConnectionCount() > $this->server->getMaxPlayers()){
-			$ev->setKickFlag(PlayerPreLoginEvent::KICK_FLAG_SERVER_FULL, KnownTranslationFactory::disconnectionScreen_serverFull());
+			$ev->setKickReason(PlayerPreLoginEvent::KICK_REASON_SERVER_FULL, $this->server->getLanguage()->translate(KnownTranslationFactory::disconnectionScreen_serverFull()));
 		}
 		if(!$this->server->isWhitelisted($playerInfo->getUsername())){
-			$ev->setKickFlag(PlayerPreLoginEvent::KICK_FLAG_SERVER_WHITELISTED, KnownTranslationFactory::pocketmine_disconnect_whitelisted());
+			$ev->setKickReason(PlayerPreLoginEvent::KICK_REASON_SERVER_WHITELISTED, $this->server->getLanguage()->translate(KnownTranslationFactory::pocketmine_disconnect_whitelisted()));
 		}
 
 		$banMessage = null;
@@ -335,12 +331,12 @@ class LoginPacketHandler extends PacketHandler{
 			$banMessage = KnownTranslationFactory::pocketmine_disconnect_ban($banReason !== "" ? $banReason : KnownTranslationFactory::pocketmine_disconnect_ban_ip());
 		}
 		if($banMessage !== null){
-			$ev->setKickFlag(PlayerPreLoginEvent::KICK_FLAG_BANNED, $banMessage);
+			$ev->setKickReason(PlayerPreLoginEvent::KICK_REASON_BANNED, $this->server->getLanguage()->translate($banMessage));
 		}
 
 		$ev->call();
 		if(!$ev->isAllowed()){
-			$this->session->disconnect($ev->getFinalDisconnectReason(), $ev->getFinalDisconnectScreenMessage());
+			$this->session->disconnect($ev->getFinalKickMessage());
 			return null;
 		}
 

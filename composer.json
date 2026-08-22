@@ -74,6 +74,7 @@
    "autoload": {
       "psr-4": {
          "pocketmine\\": "src/",
+         "pmmp\\": "src/pmmp/",
          "pmmp\\encoding\\": "src/encoding/"
       },
       "files": [
