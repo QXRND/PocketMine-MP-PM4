@@ -34,3 +34,7 @@ This PHAR also includes the packet compatibility fix for PM4's `BinaryStream` an
 PM4 now uses the same QXRND presentation as PM5 and PM6 for `/ver`, `/about` and `/status`. The output is in English, uses the QXRND color layout without emojis or diamonds, includes the Discord support link in `/ver` and `/about`, and does not include Discord in `/status`.
 
 The release also includes the QXRND quick gamemode shortcuts `/gma`, `/gmsp`, `/gmc` and `/gms`, using the normal `/gamemode` permissions.
+
+## Login crash fix
+
+Fixed the PM4 Bedrock 1.26.44 login crash caused by the missing `VarInt::unpackUnsignedInt()` compatibility method used by `PacketPool` when reading the first client packet.
