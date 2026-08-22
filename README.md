@@ -58,8 +58,8 @@ pmmp/PocketMine are not affiliated with Mojang. All brands and trademarks belong
 |---|---|
 | Código fuente editable | [QXRND/PocketMine-MP-PM4](https://github.com/QXRND/PocketMine-MP-PM4) |
 | Egg de Pterodactyl | [QXRND/PocketMine-MP-Egg](https://github.com/QXRND/PocketMine-MP-Egg) |
-| Release PM4 | [v4.26.0-qxrnd.1](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0-qxrnd.1) |
-| Descargar PHAR | [PocketMine-MP.phar](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.1/PocketMine-MP.phar) |
+| Release PM4 | [v4.26.0-qxrnd.3](https://github.com/QXRND/PocketMine-MP-PM4/releases/tag/v4.26.0-qxrnd.3) — Bedrock 1.26.44 / protocol 2168 |
+| Descargar PHAR | [PocketMine-MP.phar](https://github.com/QXRND/PocketMine-MP-PM4/releases/download/v4.26.0-qxrnd.3/PocketMine-MP.phar) |
 
 El egg descarga automáticamente el release más reciente de este repositorio cuando se selecciona `PM4`. Para publicar una actualización, sube un nuevo release con un asset llamado `PocketMine-MP.phar`.
 
