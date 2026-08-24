@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dcc29785141f3f3e4370682909745c0",
+    "content-hash": "13ce96426719f2f154eec270a15538ef",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -687,16 +687,16 @@
         },
         {
             "name": "pocketmine/netresearch-jsonmapper",
-            "version": "v4.2.1000",
+            "version": "v5.0.999",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/netresearch-jsonmapper.git",
-                "reference": "078764e869e9b732f97206ec9363480a77c35532"
+                "reference": "5827785cfef730719b544101905ddca5290e114c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/netresearch-jsonmapper/zipball/078764e869e9b732f97206ec9363480a77c35532",
-                "reference": "078764e869e9b732f97206ec9363480a77c35532",
+                "url": "https://api.github.com/repos/pmmp/netresearch-jsonmapper/zipball/5827785cfef730719b544101905ddca5290e114c",
+                "reference": "5827785cfef730719b544101905ddca5290e114c",
                 "shasum": ""
             },
             "require": {
@@ -707,10 +707,10 @@
                 "php": ">=7.1"
             },
             "replace": {
-                "netresearch/jsonmapper": "~4.2.0"
+                "netresearch/jsonmapper": "~5.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~7.5 || ~8.0 || ~9.0",
+                "phpunit/phpunit": "~7.5 || ~8.0 || ~9.0 || ~10.0",
                 "squizlabs/php_codesniffer": "~3.5"
             },
             "type": "library",
@@ -731,13 +731,13 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Fork of netresearch/jsonmapper with security fixes needed by pocketmine/pocketmine-mp",
+            "description": "Fork of netresearch/jsonmapper with patches needed by pocketmine/pocketmine-mp",
             "support": {
                 "email": "cweiske@cweiske.de",
                 "issues": "https://github.com/cweiske/jsonmapper/issues",
-                "source": "https://github.com/pmmp/netresearch-jsonmapper/tree/v4.2.1000"
+                "source": "https://github.com/pmmp/netresearch-jsonmapper/tree/v5.0.999"
             },
-            "time": "2023-07-14T10:44:14+00:00"
+            "time": "2025-12-24T02:11:37+00:00"
         },
         {
             "name": "pocketmine/raklib",
@@ -3328,9 +3328,9 @@
         "ext-zlib": ">=1.2.11",
         "composer-runtime-api": "^2.0"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.1.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
